@@ -11,7 +11,7 @@ service mongod start
 on folder server :
 ```
 npm i
-npm start
+npm start / npm run dev
 ```
 
 on folder client :
