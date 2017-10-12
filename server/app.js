@@ -8,8 +8,10 @@ var mongoose = require('mongoose')
 var index = require('./routes/index');
 var users = require('./routes/users');
 var articles = require('./routes/articles');
+var cors = require('cors')
 
 var app = express();
+app.use(cors())
 
 var dbserver = 'mongodb://localhost/hacktivpress'
 mongoose.connect(dbserver, (err) => {
