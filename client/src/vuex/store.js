@@ -10,11 +10,20 @@ var http = axios.create({
 
 const store = new Vuex.Store({
   state: {
-    count: 0
+    articles: []
   },
   mutations: {
-    increment (state) {
-      state.count++
+    setAllArticles (state, paylod) {
+      state.articles = paylod
+    }
+  },
+  actions: {
+    getAllArticles ({ commit }) {
+      http.get('/articles')
+      .then(({ data }) => {
+        commit('setAllArticles', data)
+      })
+      .catch(err => { console.log(err) })
     }
   }
 })
