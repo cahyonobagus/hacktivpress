@@ -3,11 +3,10 @@
     <div class="col-md-10">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h3 class="panel-title">Articles</h3>
+          <h3 class="panel-title">Blog Hacktiv8</h3>
         </div>
         <div class="panel-body">
-          Panel content
-          list articles
+          <router-view/>
         </div>
       </div>
     </div>
