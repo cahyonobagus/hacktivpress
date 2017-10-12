@@ -2,7 +2,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">Post New Article</div>
     <div class="panel-body">
-      <form class="form-horizontal" @submit.prevent="submitArticle(formNewArticle)">
+      <form class="form-horizontal" @submit.prevent="submitArticle">
           <div class="form-group">
             <label class="col-lg-2 control-label">Title</label>
             <div class="col-lg-10">
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -49,7 +49,17 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['submitArticle'])
+    ...mapActions(['submitArticle']),
+    submitNewArticle () {
+      this.submitArticle(this.formNewArticle)
+      this.formNewArticle.title = ''
+      this.formNewArticle.content = ''
+      this.formNewArticle.category = ''
+      alert('success submit article')
+    }
+  },
+  computed: {
+    ...mapState(['user'])
   }
 }
 </script>

@@ -2,11 +2,13 @@
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">Hacktiv Press</a>
+        Hacktiv Press
       </div>
 
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
+          <li><a v-if="user.username" href="#">{{ user.username }}</a></li>
+          <li v-if="user.username"><router-link  :to="{ name: 'Post' }">Post</router-link></li>
           <li><a href="#" data-toggle="modal" data-target="#modallogin">Login</a></li>
         </ul>
       </div>
@@ -19,14 +21,15 @@
             <h4 class="modal-title">Login</h4>
           </div>
           <div class="modal-body">
-            <form method="post" @submit.prevent="submitLogin(formLogin)">
+            <form method="post" @submit.prevent="submitLoginForm">
               <input v-model="formLogin.username" type="text" name="" value="" placeholder="username">
               <input v-model="formLogin.password" type="password" name="" value="" placeholder="password">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <input type="submit" class="btn btn-primary" value="Login">
             </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Login</button>
+
           </div>
         </div>
       </div>
@@ -36,7 +39,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   data () {
     return {
@@ -47,7 +50,14 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['submitLogin'])
+    ...mapActions(['submitLogin']),
+    submitLoginForm () {
+      this.submitLogin(this.formLogin)
+      $('#modallogin').modal('hide')
+    }
+  },
+  computed: {
+    ...mapState(['user'])
   }
 }
 </script>

@@ -22,6 +22,9 @@ const store = new Vuex.Store({
     },
     setUserToken (state, payload) {
       state.user.token = payload
+    },
+    setUser (state, payload) {
+      state.user = payload
     }
   },
   actions: {
@@ -32,7 +35,8 @@ const store = new Vuex.Store({
       })
       .catch(err => { console.log(err) })
     },
-    submitArticle ({ commit }, dataArticle) {
+    submitArticle ({ commit, state }, dataArticle) {
+      dataArticle.author = state.user._id
       http.post('/articles', dataArticle)
       .then(({ data }) => {
         commit('pushArticle', data)
@@ -40,8 +44,14 @@ const store = new Vuex.Store({
       .catch(err => { console.log(err) })
     },
     submitLogin ({ commit }, dataLogin) {
+      console.log('actions login')
       http.post('/users/login', dataLogin)
       .then(({ data }) => {
+        http.post('/users/verify', { token: data })
+        .then(({ data }) => {
+          commit('setUser', data)
+        })
+        .catch(err => { console.log(err) })
         commit('setUserToken', data)
       })
       .catch(err => { console.log(err) })

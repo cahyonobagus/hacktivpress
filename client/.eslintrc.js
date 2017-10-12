@@ -6,8 +6,12 @@ module.exports = {
   parserOptions: {
     sourceType: 'module'
   },
+  'globals': {
+    'jquery': true
+  },
   env: {
     browser: true,
+    jquery: true
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
