@@ -13,21 +13,25 @@ module.exports = {
   },
   getAll: (req, res) => {
     Article.find({})
+    .populate({ path: 'author', select: '_id username'})
     .then(articles => {res.send(articles)})
     .catch(err => {re.send(err)})
   },
   getByUId: (req, res) => {
     Article.find({author: req.params.userid})
+    .populate({ path: 'author', select: '_id username'})
     .then(articles => {res.send(articles)})
     .catch(err => {res.send(err)})
   },
   getByCId: (req, res) => {
     Article.find({category: req.params.catid})
+    .populate({ path: 'author', select: '_id username'})
     .then(articles => {res.send(articles)})
     .catch(err => {res.send(err)})
   },
   getById: (req, res) => {
     Article.find({_id: req.params.id})
+    .populate({ path: 'author', select: '_id username'})
     .then(article => {res.send(article)})
     .catch(err => {res.send(err)})
   },

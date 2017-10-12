@@ -19,6 +19,7 @@ const store = new Vuex.Store({
   },
   actions: {
     getAllArticles ({ commit }) {
+      console.log('masuk actions')
       http.get('/articles')
       .then(({ data }) => {
         commit('setAllArticles', data)
